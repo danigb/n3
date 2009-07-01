@@ -11,9 +11,12 @@ class NameValue
 end
 
 class ApplicationController < ActionController::Base
+  helper :all # include all helpers, all the time
+  protect_from_forgery # See ActionController::RequestForgeryProtection for details
+
+  filter_parameter_logging :password, :password_confirmation
+
   include AuthenticatedSystem
-  # Pick a unique cookie name to distinguish our session data from others'
-  session :session_key => '_n2_session_id'
 
 	def initialize 
 		@categories = ['news', 'projects', 'services', 'sell', 'rent', 'team', 'contact']
@@ -22,16 +25,16 @@ class ApplicationController < ActionController::Base
 		@categories.each_with_index {|item, index| @names[item] = name_list[index]}
 		@subcategories = {}
 		@categories.each {|item| @subcategories[item] = ['all']}
-		# JODER: (2007..1996).to_a
+    # JODER: (2007..1996).to_a
 		@subcategories['projects'] = ['2009', '2008', '2007', '2006', '2005', '2004', '2003', '2002', '2001', '2000', '1999', '1998', '1997', '1996']  
 		@subcategories['team'] = ['Diepoldsau', 'Zürich']
 		@subcategories['contact'] = ['Diepoldsau', 'Zürich']
 		@positions = [NameValue.new('Diashow', 'slideshow'), 
-															NameValue.new('Karte', 'map'), 										
-															NameValue.new('Hauptbild', 'main image'), 
-															NameValue.new('Pdf', 'pdf'), 
-															NameValue.new('Projekte index bild', 'index image'), 
-															NameValue.new('Kein', 'none')]
+      NameValue.new('Karte', 'map'),
+      NameValue.new('Hauptbild', 'main image'),
+      NameValue.new('Pdf', 'pdf'),
+      NameValue.new('Projekte index bild', 'index image'),
+      NameValue.new('Kein', 'none')]
 
 
 		@periods = ['2009 | 2008', '2007 | 2006', '2005 | 2004', '2003 | 2002', '2001 | 2000', '1999 | 1998', '1997 | 1996']
@@ -47,7 +50,7 @@ class ApplicationController < ActionController::Base
 	end
 	
 	def period_of(year)
-#			@periods.find {|period| Regex.new(period).match(year.to_s).nil? }
+    # # 		@periods.find {|period| Regex.new(period).match(year.to_s).nil? }
 		@periods.find {|period| !period.index(year.to_s).nil?}
 	end	
 	

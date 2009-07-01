@@ -1,3 +1,5 @@
+require 'redcloth'
+
 module NovaronHelper
 
 	def filename_of(image)

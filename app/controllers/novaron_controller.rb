@@ -1,6 +1,5 @@
 class NovaronController < ApplicationController
 
-
   def index
 		redirect_to :action => 'news'
 	end
@@ -63,7 +62,7 @@ class NovaronController < ApplicationController
 		@images.reverse!
 	end
 
-private
+  private
   def prepare(category, id, group)
   	@group = group
 	  if id.nil?
@@ -77,7 +76,7 @@ private
 			@item = nil
 		end
 		@groups = @subcategories[category]
-    	@items = Item.find_all_by_category_and_subcategory(category, @group, :order => 'position')
+    @items = Item.find_all_by_category_and_subcategory(category, @group, :order => 'position')
 		@item = @items.first if @item.nil?
 		@section = @item.category
 	end
