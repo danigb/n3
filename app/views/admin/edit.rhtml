@@ -1,0 +1,8 @@
+<h1><%= name_of(@item.category) %> bearbeiten</h1>
+
+<% form_for :item, :url => { :action => 'update', :id=> @item }, :html => { :multipart => true, :id => 'editor' } do |f| -%>
+
+  <%= render :partial => 'form', :locals => {:item => @item,  :category => @item.category} %>
+<% end %>
+
+

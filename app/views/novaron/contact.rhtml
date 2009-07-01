@@ -1,0 +1,29 @@
+
+
+<div class="block">
+<% for group in @groups %>
+<%= link_to_if @group != group, group, :id => group %> <br/>
+<% end %>
+</div>
+
+<div class="block">
+<%= beautify @item.content %>
+<% for pdf in @item.pdfs %>
+	<%= image_tag 'file.png' %>
+	<%= link_to title_of(pdf), pdf.public_filename, :popup => ['_blank'] %>	<br/>
+<% end %>
+<br/>
+<%= render_link '>> contact', @item %>
+</div>
+
+<div class="block expand2">
+<%= image_tag filename_of(@item.map_image) %>
+</div>
+
+<div class="block">
+<div class="blocImage">
+<%= image_tag filename_of @item.main_image %>
+</div>
+</div>
+
+

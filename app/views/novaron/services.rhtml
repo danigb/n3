@@ -1,0 +1,18 @@
+
+<div class="block">
+<% for item in @items -%>
+<%= link_to_if @item != item, item.title, {:action=> 'services', :id => item} %><br/>
+<% end -%>
+</div>
+
+<div id="content" class="block expand3">
+<%= render :partial => 'content', :locals => {:content => @item.content} %>
+<%= render :partial => 'controls' %>
+</div>
+
+<div class="block">
+	<div class="blocImage">
+			<%= image_tag filename_of(@item.front_image) %>
+   </div>
+</div>
+

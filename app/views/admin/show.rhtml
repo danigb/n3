@@ -1,0 +1,21 @@
+<h1><%= link_to name_of(@item.category), {:action => 'list', :id => @item.category}  %></h1>
+
+<div id="buttons">
+<%= link_to 'Edit', {:action => 'edit', :id => @item}, :class=> 'button' %> 
+<%= link_to 'Back', {:action => 'list', :id => @item.category}, :class=> 'button'  %>
+</div>
+<div class="spacer" />
+
+<p>
+  <b>Title:</b> <%=h @item.title %>
+</p>
+<p>
+  <b>Content:</b> <%=h @item.content %>
+</p>
+<p>
+  <b>Images:</b><br/>
+  <% for image in @item.item_images -%>
+  	<%= image_tag image.public_filename %>
+  <% end -%>
+</p>
+

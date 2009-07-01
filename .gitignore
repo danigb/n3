@@ -1,0 +1,14 @@
+.DS_Store
+log/*.log
+tmp/**/*
+config/database.yml
+config/cyl.yml
+db/*.sqlite3
+public/assets/**
+nbproject
+db/data.yml
+db/data/*.sql
+backups/*.bz2
+config/git.yml
+
+

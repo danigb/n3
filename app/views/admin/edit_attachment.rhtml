@@ -1,0 +1,32 @@
+<h1>Anhang bearbeiten</h1>
+
+<%= link_to_function 'Sichern', 'getElementById("editor").submit();', :class => 'button' %>
+<div class="spacer" />
+
+<div id="attachmentImage">
+<%= image_tag @attachment.public_filename %>
+</div>
+
+<% form_tag({:action => 'update_attachment', :id => @attachment}, {:id=> 'editor'}) do %>
+	<p>
+	<label for="attachment_filename">Dateiname: </label>
+	<%= @attachment.filename %>
+	</p>
+
+	<p>
+	<label for="attachment_content_type">Dateityp: </label>
+	<%= @attachment.content_type %>
+	</p>
+
+	<p><label for="attachment_position">Verwendungszweck</label><br/>
+		<%= collection_select 'attachment', 'position', @positions, 'value', 'name' %>
+	</p>
+
+	<p><label for="attachment_title">Titel</label><br/>
+		<%= text_field 'attachment', 'title'  %> 
+	</p>
+
+<% end -%>
+
+
+<div class="spacer" />

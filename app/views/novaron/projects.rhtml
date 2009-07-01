@@ -1,0 +1,17 @@
+
+<%= render :partial => 'project_index' %>
+
+
+<div class="block">
+	<%= render :partial => 'index_images', :locals => {:indexes => 0..5, :images => @images} %>
+</div>
+
+<div class="block">
+	<%= render :partial => 'index_images', :locals => {:indexes => 6..11, :images => @images} %>
+</div>
+
+<div class="block">
+	<%= render :partial => 'index_images', :locals => {:indexes => 12..17, :images => @images} %>
+</div>
+
+

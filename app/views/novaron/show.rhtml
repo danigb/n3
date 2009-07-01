@@ -1,0 +1,43 @@
+
+<div class="block">
+<% for item in @items -%>
+<%= link_to_if @item != item, item.title, {:action=> 'show', :id => item} %><br/>
+<% end -%>
+</div>
+
+
+<div class="block">
+<% for pdf in @item.pdfs %>
+	<%= image_tag 'file.png' %>
+	<%= link_to title_of(pdf), pdf.public_filename, :popup => ['_blank'] %>	<br/>
+<% end %>
+</div>
+
+
+<div id="content" class="block expand3">
+	<div id="closePanel" style="display: none">
+		<%= link_to_function image_tag("close.png"), 'hideImages()' %>
+	</div>
+
+	<div id="frontImage">
+			<%= image_tag filename_of(@item.front_image) %>
+   </div>
+
+	<div id="mainText">
+			<p><%= @item.title %></p>
+			<%= beautify @item.content %>
+	</div>
+
+<% for slide in @slideshow -%>
+	<div id="slideImage<%= slide.id %>" class="slideImage" style="display: none">
+		<%= image_tag slide.public_filename %>
+	</div>
+<% end -%>
+
+<div id="projectLinks">
+<% @slideshow.each_with_index do |image, index| -%>
+<%= link_to_function "#{index + 1}", "ShowImage(#{image.id})" %> |
+<% end -%>
+</div>
+</div>
+

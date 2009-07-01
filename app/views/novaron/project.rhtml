@@ -1,0 +1,47 @@
+	
+
+<%= render :partial => 'project_index' %>
+
+
+<div id="content" class="block expand3">
+	<div id="closePanel" style="display: none">
+		<%= link_to_function image_tag('close.png'), 'hideImages()' %>
+	</div>
+
+	<div id="frontImage">
+			<%= image_tag filename_of(@item.front_image) %>
+   </div>
+
+
+
+	<div id="mainText">
+		<div id="expansible" class="contentExpand3" >
+		<div id="overflowPanel">
+			<%= @item.title %> | <%= @item.subcategory %><br/> 
+			<%=beautify @item.content  %>
+			<% for pdf in @item.pdfs %>
+				<%= image_tag 'file.png' %>
+				<%= link_to title_of(pdf), pdf.public_filename, :popup => ['_blank'] %> |	 
+			<% end %>
+		</div>
+		</div>
+	</div>
+
+
+
+<% for image in @slideshow -%>
+	<div id="slideImage<%= image.id %>" class="slideImage" style="display: none">
+		<%= image_tag image.public_filename %>
+	</div>
+<% end -%>
+
+<div id="projectLinks">
+<%= render :partial => 'controls' %>
+<% @slideshow.each_with_index do |image, index| -%>
+<%= link_to_function "#{index + 1}", "ShowImage(#{image.id})" %> |
+<% end -%>
+</div>
+
+
+
+</div>

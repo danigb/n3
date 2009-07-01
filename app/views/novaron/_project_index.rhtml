@@ -1,0 +1,20 @@
+<div id="years" class="block">
+	<% index = 0 %>
+	<% for period in @periods %>
+		<% if @group == period %>
+			<%= link_to period, {:action=> "projects", :id => period}, {:class => 'selected'} %> 
+		<% else %>
+			<%= link_to period, {:action=> "projects", :id => period} %>
+		<% end %>
+		<%= '<br/>' if index % 2 == 1 %>
+		<%= ' | ' if index % 2 == 0 %>
+		<% index += 1 %>
+	<% end %>
+</div>
+
+<div id="projects" class="block">
+	<% for project in @items %>  	
+		<%= link_to_if @item != project, project.title, {:action => "project", :id => project} %><br/>
+	<% end%>	
+</div>
+

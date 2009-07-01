@@ -1,0 +1,50 @@
+
+<% if @groups.size > 1 %>
+| 
+<% for group in @groups %>
+<%= link_to_if @group != group, group, :id => @category, :group => group %> | 
+<% end %>
+<% end %>
+
+<h1><%= name_of(@category) %> > <%= @group %></h1>
+<%= link_to 'Neue ' + name_of(@category), {:action => 'new', :id=> @category}, {:class => 'button'} %>
+<%= link_to 'Einträge ordnen', {:action => 'reorder', :id => @category, :group => @group
+}, {:confirm => 'Einträge neu ordnen ?', :class => 'button'} %>
+<div class="spacer" />
+
+<table class="list">
+<thead>
+  <tr>
+	<td>Titel</td>
+	<td>Text</td>
+	<td>Gruppe</td>
+	<% if has_link(@category) %>
+	<td>Link</td>
+	<% end -%>
+	<td>Position</td>
+  <td></td>
+</thead>
+<tbody>
+<% for item in @items %>
+  <tr class="<%= cycle("even", "odd") -%>">
+    <td><%= link_to item.title, :action => 'edit', :id => item %> </td>
+    <td><%= item.content.size > 200 ? item.content[0..200] + '...' : item.content %></td>
+    <td><%= item.subcategory %></td>
+
+	<% if has_link(@category) %>
+		<td><%= render_link(item.link, item) %></td>
+	<% end %>
+		<td><%= item.position %></td>
+    <td style="width: 12em">
+			<%= link_to 'Bearbeiten', :action => 'edit', :id => item %> |
+	    <%= link_to 'Löschen', { :action => 'destroy', :id => item }, :confirm => 'Eintrag löschen?', :method => :post %>
+		</td>
+  </tr>
+<% end %>
+</tbody>
+  
+</table>
+
+<br />
+
+

@@ -1,0 +1,7 @@
+<h1>Neue <%= name_of(@category) %></h1>
+
+<% form_for :item, :url => { :action => 'create' }, :html => { :multipart => true, :id => 'editor' } do |f| -%>
+  <%= render :partial => 'form', :locals => {:item => @item, :category => @category } %>
+<% end %>
+
+

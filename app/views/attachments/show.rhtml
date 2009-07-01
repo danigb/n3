@@ -1,0 +1,8 @@
+<% for column in ItemImage.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @item_image.send(column.name) %>
+</p>
+<% end %>
+
+<%= link_to 'Edit', :action => 'edit', :id => @item_image %> |
+<%= link_to 'Back', :action => 'list' %>

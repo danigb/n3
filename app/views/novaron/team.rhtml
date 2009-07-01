@@ -1,0 +1,25 @@
+
+<div id="groups" class="block">
+<% for group in @groups %>
+<%= link_to_if @group != group, group, :id => group %> <br/>
+<% end %>
+</div>
+
+<div id="list" class="block">
+<% for item in @items %>
+<%= link_to_if item != @item, item.title, :id => item %><br/>
+<% end %>
+</div>
+
+<div id="info" class="block expand2">
+<%= beautify @item.content if !@item.nil? %><br/><br/>
+<%= render_link '>> contact', @item if !@item.nil? %>
+</div>
+
+<div id="image" class="block">
+<div id="teamImage">
+<%= image_tag filename_of(@item.main_image) if !@item.nil? %>
+</div>
+</div>
+
+

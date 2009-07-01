@@ -1,0 +1,9 @@
+
+<%= item.title %><% if !item.main_image.nil? %><div class="blocImage"><%= image_tag filename_of(item.main_image) %></div><% end %><br/>
+<%= beautify item.content %>
+<% for pdf in item.pdfs %>
+	<%= image_tag 'file.png' %>
+	<%= link_to title_of(pdf), pdf.public_filename, :popup => ['_blank'] %> <br/>
+<% end %>
+
+<%= render_link '>> Mehr Informationen', item %>

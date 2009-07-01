@@ -1,0 +1,76 @@
+
+	<%= link_to_function 'Sichern', 'getElementById("editor").submit();', :class => 'button' %>
+  <%= link_to 'Schliessen ', {:action => 'list', :id=> item.category, :group => item.subcategory}, {:class => 'button'} %>
+	<div class="spacer" />
+
+
+<%= error_messages_for 'items' %>
+
+<!--[form:item]-->
+<table><tr>
+<td id="main" style="padding: 0">
+<%= hidden_field 'item', 'category' %>
+
+<p><label for="item_title">Titel</label><br/>
+<%= text_field 'item', 'title'  %></p>
+
+<p><label for="item_subcategory">Gruppe</label><br/>
+<%= collection_select 'item', 'subcategory', @subcategories[item.category], 'to_s', 'to_s' %></p>
+
+<p><label for="item_position">Position</label><br/>
+<%= text_field 'item', 'position'  %></p>
+
+
+<p><label for="item_content">Text</label><br/>
+<%= text_area 'item', 'content'  %></p>
+
+<% if has_link(category) %>
+<p><label for="item_link">Link</label><br/>
+<%= text_field 'item', 'link'  %></p>
+<% end %>
+
+</td>
+
+<td id="images">
+
+<div id="add_attachment_link">
+  <p><%= link_to_function 'Datei hinzufügen', 'AddAttachment()', :class=> 'button' %></p>
+</div>
+<div id="upload" >
+	<div id="attachments" style="display: none">
+	'Sichern' klicken um Datei hochzuladen
+	</div>
+</div>
+
+<div id="currentImages">
+  <b>Hinzugefügte dateien:</b><br/>
+	<table class="list attList">
+<thead><tr><td>Dateiname</td><td>Platzierung</td><td>Titel</td><td>Position</td><td></td><td></td></tr></thead>
+<tbody>
+  <% for image in @item.item_images -%>
+<tr class="<%= cycle("even", "odd") -%>">
+		<td><%= link_to truncate(image.filename, 26, "(...)#{image.filename[-4..-1]}"), 
+		  {:action => 'edit_attachment', :id => image }, :title => image.filename %></td>
+	<td><%= image.position %></td>
+	<td><%= image.title %></td>
+	<td><%= image.listpos %>
+	<%= link_to image_tag('move_up.gif'), :action => 'move_up', :id => image	 %> 
+	<%= link_to image_tag('move_down.gif'), :action => 'move_down', :id => image	 %>
+	</td>
+  	<td><%= render_thumb image %></td>
+<td>
+	<%= link_to 'Bearbeiten', {:action => 'edit_attachment', :id => image } %> | 
+	<%= link_to 'Löschen', {:action => 'destroy_image', :id => image }, :confirm => 'Are you sure?', :method => :post %>
+</td>
+</tr>
+  <% end -%>
+</tbody>
+</table>
+</div>
+
+
+</td>
+
+</tr></table>
+<!--[eoform:item]-->
+

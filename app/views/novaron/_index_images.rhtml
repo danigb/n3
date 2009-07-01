@@ -1,0 +1,8 @@
+
+<div id="indexImagesPanel">
+<% for index in indexes %>
+<%= link_to image_tag(images[index][0]), {:action => 'project', :id => images[index][1]} unless images[index][1].nil? %>
+<%= image_tag(images[index][0]) if  images[index][1].nil? %>
+<% end %>
+</div>
+
