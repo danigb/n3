@@ -9,19 +9,20 @@ require 'yaml'
 GIT = YAML.load_file("#{File.dirname(__FILE__)}/git.yml")
 
 default_run_options[:pty] = true
-set :application, "cyl"
+set :application, "n3"
 set :deploy_to, "/home/deploy/#{application}"
 set :user, "deploy"
 set :use_sudo, false
 
 set :scm, "git"
-set :repository,  "git@github.com:danigb/cyl.git"
+set :repository,  "git@github.com:danigb/n3.git"
 set :branch, "master"
 set :deploy_via, :remote_cache
 set :scm_verbose, true
 set :scm_passphrase, GIT['password']
 
-# set :git_shallow_clone, 1 #set :git_enable_submodules, 1
+# set :git_shallow_clone, 1
+set :git_enable_submodules, 1
 
 role :app, "toami.net"
 role :web, "toami.net"
@@ -52,30 +53,6 @@ namespace :deploy do
     task t, :roles => :app do ; end
   end
 end
-
-
-# http://www.magnionlabs.com/2009/2/28/background-job-processing-in-rails-with-delayed_job
-namespace :delayed_job do
-  desc "Start delayed_job process"
-  task :start, :roles => :app do
-    run "cd #{current_path}; script/delayed_job start production" #{rails_env}"
-  end
-
-  desc "Stop delayed_job process"
-  task :stop, :roles => :app do
-    run "cd #{current_path}; script/delayed_job stop production" #{rails_env}"
-  end
-
-  desc "Restart delayed_job process"
-  task :restart, :roles => :app do
-    run "cd #{current_path}; script/delayed_job restart production" #{rails_env}"
-  end
-end
-
-after "deploy:start", "delayed_job:start"
-after "deploy:stop", "delayed_job:stop"
-after "deploy:restart", "delayed_job:restart"
-
 
 
 namespace :backup do
