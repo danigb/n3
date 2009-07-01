@@ -9,7 +9,7 @@ require 'yaml'
 GIT = YAML.load_file("#{File.dirname(__FILE__)}/git.yml")
 
 default_run_options[:pty] = true
-set :application, "n3"
+set :application, "novaron"
 set :deploy_to, "/home/deploy/#{application}"
 set :user, "deploy"
 set :use_sudo, false
@@ -21,8 +21,7 @@ set :deploy_via, :remote_cache
 set :scm_verbose, true
 set :scm_passphrase, GIT['password']
 
-# set :git_shallow_clone, 1
-set :git_enable_submodules, 1
+# set :git_shallow_clone, 1 set :git_enable_submodules, 1
 
 role :app, "toami.net"
 role :web, "toami.net"
@@ -35,7 +34,8 @@ after "deploy", "deploy:cleanup"
 namespace :config do
   desc "copy shared configurations to current"
   task :copy_shared_configurations, :roles => [:app] do
-    %w[database.yml cyl.yml].each do |f|
+    run "ln -sf #{shared_path}/media #{release_path}/public/item_images"
+    %w[database.yml].each do |f|
       run "ln -nsf #{shared_path}/config/#{f} #{release_path}/config/#{f}"
     end
   end
