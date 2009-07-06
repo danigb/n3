@@ -26,9 +26,6 @@
         <%= link_to_if @section != 'rent', 'Mietangebote', {:controller => 'novaron', :action => 'show', :id=>  'rent'} %> |
         <%= link_to_if @section != 'team', 'Team', {:controller => 'novaron', :action => 'team', :id => nil} %> |
         <%= link_to_if @section != 'contact', 'Kontakt', {:controller => 'novaron', :action => 'contact', :id => nil} %> |
-        <% if logged_in? %>
-          <%= link_to 'Admin', {:controller => 'admin' } %> |
-        <% end %>
       </div>
     </div>
 

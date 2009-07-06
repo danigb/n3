@@ -53,7 +53,7 @@ jQuery.fn.crossSlide = function(opts, plan) {
 				n_loaded++;
 				plan[i].width = img.width;
 				plan[i].height = img.height;
-				if (n_loaded == plan.length)
+				if (n_loaded == 1) /*== plan.length)*/ /* NOT ALL THE IMAGES MIGHT BE LOADED */
 					proceed();
 			}
 			img.src = plan[i].src;
@@ -156,27 +156,28 @@ jQuery.fn.crossSlide = function(opts, plan) {
 
 			if (speed) { // speed/dir mode
 
+            var slide_px = 0;
 				// check parameters and translate speed/dir mode into full mode (from/to/time)
 				switch (p.dir) {
 					case 'up':
 						p.from = { xrel: .5, yrel: 0, zoom: 1 };
 						p.to   = { xrel: .5, yrel: 1, zoom: 1 };
-						var slide_px = p.height - self_height - 2 * fade_px;
+						varslide_px = p.height - self_height - 2 * fade_px;
 						break;
 					case 'down':
 						p.from = { xrel: .5, yrel: 1, zoom: 1 };
 						p.to   = { xrel: .5, yrel: 0, zoom: 1 };
-						var slide_px = p.height - self_height - 2 * fade_px;
+						slide_px = p.height - self_height - 2 * fade_px;
 						break;
 					case 'left':
 						p.from = { xrel: 0, yrel: .5, zoom: 1 };
 						p.to   = { xrel: 1, yrel: .5, zoom: 1 };
-						var slide_px = p.width - self_width - 2 * fade_px;
+						slide_px = p.width - self_width - 2 * fade_px;
 						break;
 					case 'right':
 						p.from = { xrel: 1, yrel: .5, zoom: 1 };
 						p.to   = { xrel: 0, yrel: .5, zoom: 1 };
-						var slide_px = p.width - self_width - 2 * fade_px;
+						slide_px = p.width - self_width - 2 * fade_px;
 						break;
 					default:
 						abort('missing or malformed "dir" parameter in picture {0}.', i + 1);

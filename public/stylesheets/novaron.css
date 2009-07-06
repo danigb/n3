@@ -152,7 +152,6 @@ div.blocImage {
 /** SLIDESHOW **/
 #slideshow { width: 962px; }
 #slideshow .slide {width: 155px; height: 100px; margin-left: 41px;
-    margin-top: 43px; float: left;
-    background-color: #efefef;}
+    margin-top: 43px; float: left;}
 #slideshow .first {margin-left: 10px;}
 

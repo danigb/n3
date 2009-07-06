@@ -8,13 +8,15 @@
 </div>
 
 
-<% columns = @images.map{|item| "{src: '#{item[:filename]}', href: '#{url_for(project_path(item[:project]))}'}"}.chunk(5) %>
-
+<% columns = @images.map{|item| "{src: '#{h item[:filename]}', href: '#{url_for(project_path(item[:project]))}'}"}.chunk(5) %>
+<% sleepy = [3, 4, 6, 8, 12] %>
+<% fady = [1, 2]  %>
 <script type="text/javascript">
+
   $(function() {
 
 <% columns.each_with_index do |data, index| -%>
-      $("#slide<%= index %>").crossSlide({sleep: 2, fade: 1}, [<%= data.join(',') -%>]);
+      $("#slide<%= index %>").crossSlide({sleep: <%= sleepy[rand(sleepy.size)] %>, fade: <%= fady[rand(fady.size)] %>}, [<%= data.join(',') -%>]);
 <% end -%>
 
 
