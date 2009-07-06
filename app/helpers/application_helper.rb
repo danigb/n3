@@ -5,6 +5,10 @@ module ApplicationHelper
 		@names[token]
   end
 
+  def project_path(project_id)
+    {:controller => 'novaron', :action => 'project', :id => project_id} if project_id
+  end
+
 	def render_link(label, item)
 		if !item.link.nil? && !item.link.empty?
 			link = item.link

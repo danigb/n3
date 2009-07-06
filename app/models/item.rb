@@ -13,7 +13,7 @@ class Item < ActiveRecord::Base
 	end
 
 	def front_image
-		image = ItemImage.find_by_item_id_and_position(id, "main image")
+    ItemImage.find_by_item_id_and_position(id, "main image")
 	end
 
 	def slideshow 
@@ -32,7 +32,6 @@ class Item < ActiveRecord::Base
 		ItemImage.find_by_item_id_and_position(id, "map")
 	end
 
-
 	def pdfs
 		ItemImage.find_all_by_item_id_and_position(id, "pdf", :order => 'listpos')
 	end
@@ -40,7 +39,7 @@ class Item < ActiveRecord::Base
   def before_save
   end
 
-private
+  private
 	def before_save_news_logic
 		if category == 'news' && subcategory != 'kein'
 			assigned = Item.find_by_category_and_subcategory('news', subcategory)

@@ -1,0 +1,25 @@
+
+<div id="slideshow" class="block">
+  <div id="slide0" class="slide first"></div>
+  <div id="slide1" class="slide"></div>
+  <div id="slide2" class="slide"></div>
+  <div id="slide3" class="slide"></div>
+  <div id="slide4" class="slide"></div>
+</div>
+
+
+<% columns = @images.map{|item| "{src: '#{item[:filename]}', href: '#{url_for(project_path(item[:project]))}'}"}.chunk(5) %>
+
+<script type="text/javascript">
+  $(function() {
+
+<% columns.each_with_index do |data, index| -%>
+      $("#slide<%= index %>").crossSlide({sleep: 2, fade: 1}, [<%= data.join(',') -%>]);
+<% end -%>
+
+
+  });
+</script>
+
+
+

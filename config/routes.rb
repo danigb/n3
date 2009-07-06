@@ -1,9 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
-  map.connect '/', :controller => 'novaron', :action => 'news'
+  map.root :controller => 'novaron', :action => 'slideshow'
 
   map.connect 'Projekte', :controller => 'novaron', :action => 'projects', :id => nil
   map.connect 'Projekte/:id', :controller => 'novaron', :action => 'projects'
   map.connect 'Projekt/:id', :controller => 'novaron', :action => 'project'
+  map.connect 'Slideshow', :controller => 'novaron', :action => 'slideshow'
 
   map.connect 'Dienstleistungen', :controller => 'novaron', :action => 'services', :id => 'services'
   map.connect 'Dienstleistungen/:id', :controller => 'novaron', :action => 'services'

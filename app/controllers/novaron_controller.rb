@@ -1,5 +1,12 @@
 class NovaronController < ApplicationController
 
+  def slideshow
+    @section = 'slideshow'
+    data= ItemImage.all(:joins => :item,  :include => [:item],
+      :conditions => {:position => 'main image', :items => {:category => 'projects'} })
+    @images = data.map {|image| {:filename => image.public_filename, :project => image.item.id}}.sort_by { rand }
+  end
+
   def index
 		redirect_to :action => 'news'
 	end
