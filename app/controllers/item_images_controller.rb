@@ -1,15 +1,15 @@
-class ImagesController < ApplicationController
+class ItemImagesController < ApplicationController
+  before_filter :login_required
+  layout 'admin'
+    
   def index
-    list
-    render :action => 'list'
-  end
-
-  # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
-  verify :method => :post, :only => [ :destroy, :create, :update ],
-         :redirect_to => { :action => :list }
-
-  def list
-    @item_image_pages, @item_images = paginate :item_images, :per_page => 10
+    if params[:category].blank?
+      @item_images = ItemImage.paginate(:page => params[:page])
+    else
+      conditions =  {:content_type => 'image/jpeg', :items => {:category => params[:category]}}
+      @item_images = ItemImage.paginate(:page => params[:page], :joins => :item, :include => :item,
+        :conditions => conditions, :per_page => 100)
+    end
   end
 
   def show
@@ -46,6 +46,6 @@ class ImagesController < ApplicationController
 
   def destroy
     ItemImage.find(params[:id]).destroy
-    redirect_to :action => 'list'
+    redirect_to item_images_path
   end
 end

@@ -1,4 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
+
   map.root :controller => 'novaron', :action => 'slideshow'
 
   map.connect 'Projekte', :controller => 'novaron', :action => 'projects', :id => nil
@@ -13,11 +14,16 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'Mietangebote', :controller => 'novaron', :action => 'show', :id => 'rent'
   map.connect 'Kauf-Mietangebote/:id', :controller => 'novaron', :action => 'show'
 
+  map.connect 'News', :controller => 'novaron', :action => 'news'
+  map.connect 'Bildergalerie', :controller => 'novaron', :action => 'slideshow'
+
   #  map.connect 'Team', :controller => 'novaron', :action => 'team'
   map.connect 'Team/:id', :controller => 'novaron', :action => 'team'
 
   #  map.connect 'Kontakt', :controller => 'novaron', :action => 'contact'
   map.connect 'Kontakt/:id', :controller => 'novaron', :action => 'contact'
+
+  map.resources :item_images
 
 
 	map.connect 'admin/:action/:id/:group', :controller => 'admin'

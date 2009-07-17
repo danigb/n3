@@ -1,9 +1,8 @@
 class NovaronController < ApplicationController
-
   def slideshow
     @section = 'slideshow'
     data= ItemImage.all(:joins => :item,  :include => [:item],
-      :conditions => {:position => 'main image', :items => {:category => 'projects'} })
+      :conditions => {:content_type => 'image/jpeg', :position => 'main image', :items => {:category => 'projects'} })
     @images = data.map {|image| {:filename => image.public_filename, :project => image.item.id}}.sort_by { rand }
   end
 

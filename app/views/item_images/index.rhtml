@@ -1,0 +1,31 @@
+<h1>Listing item_images</h1>
+
+<%= link_to 'todas', item_images_path(:category => nil) %> |
+<%= link_to 'sólo proyectos', item_images_path(:category => 'projects') %>
+
+<%= will_paginate @item_images %>
+
+<table>
+  <tr>
+    <th>type</th>
+    <th>item</th>
+    <th>filename</th>
+    <th>image</th>
+    <th></th>
+  </tr>
+
+  <% @item_images.each do |image| %>
+    <tr class="<%=cycle('even', 'odd') %> ">
+      <td><%= image.content_type %></td>
+      <td><%= link_to_if image.item, 'item', {:controller => 'admin', :action => 'edit', :id => image.item_id}   %></td>
+      <td><%=h image.filename %></td>
+      <td><%=image_tag(filename_of image) %></td>
+      <td>
+        <%= link_to 'Show', image %> |
+        <%= link_to 'Edit', edit_item_image_path(image) %> |
+        <%= link_to 'Destroy', image, :confirm => 'Are you sure?', :method => :delete %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+

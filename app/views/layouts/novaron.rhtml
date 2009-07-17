@@ -18,8 +18,8 @@
     <div id="menu">
       <div id="links">
         |
-        <%= link_to_if @section != 'slideshow', 'Slideshow', root_path %> |
         <%= link_to_if @section != 'news', 'News', {:controller => 'novaron', :action => 'news'} %> |
+        <%= link_to_if @section != 'slideshow', 'Bildergalerie', root_path %> |
         <%= link_to_if @section != 'projects', 'Projekte', {:controller => 'novaron', :action => 'projects', :id =>nil} %> |
         <%= link_to_if @section != 'services', 'Dienstleistungen', {:controller => 'novaron', :action => 'services', :id=> 'services'} %> |
         <%= link_to_if @section != 'sell', 'Kaufangebote', {:controller => 'novaron', :action => 'show', :id=>  'sell'} %> |

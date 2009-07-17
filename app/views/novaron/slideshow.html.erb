@@ -9,14 +9,14 @@
 
 
 <% columns = @images.map{|item| "{src: '#{h item[:filename]}', href: '#{url_for(project_path(item[:project]))}'}"}.chunk(5) %>
-<% sleepy = [3, 4, 6, 8, 12] %>
-<% fady = [1, 2]  %>
+<% sleepy = [4, 5, 6, 8, 12] %>
+<% fady = [2, 3, 4]  %>
 <script type="text/javascript">
 
   $(function() {
 
 <% columns.each_with_index do |data, index| -%>
-      $("#slide<%= index %>").crossSlide({sleep: <%= sleepy[rand(sleepy.size)] %>, fade: <%= fady[rand(fady.size)] %>}, [<%= data.join(',') -%>]);
+      $("#slide<%= index %>").crossSlide({sleep: <%= sleepy[rand(sleepy.size)] + rand(3) %>, fade: <%= fady[rand(fady.size)] %>}, [<%= data.join(',') -%>]);
 <% end -%>
 
 
