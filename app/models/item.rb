@@ -3,7 +3,7 @@ class Item < ActiveRecord::Base
 	belongs_to :item_image
   has_many :item_images, :foreign_key => :item_id, :order => 'listpos'
 
-  has_one :main_image,  :foreign_key => :item_id, :order => 'listpos', :conditions => {:position => 'index image'}
+  #has_one :main_image,  :foreign_key => :item_id, :order => 'listpos', :conditions => {:position => 'index image'}
 
 
   def self.find_projects(years)
@@ -23,7 +23,7 @@ class Item < ActiveRecord::Base
 		ItemImage.find_by_item_id_and_position(id, "index image")
 	end
 
-	def no_main_image
+	def main_image
 		ItemImage.find_by_item_id_and_position(id, "main image")
 	end
 
