@@ -1,6 +1,6 @@
 class ItemImage < ActiveRecord::Base
   belongs_to :item
-  acts_as_attachment :storage => :file_system, :thumbnails => { :normal => '300>', :thumb => '75' }
+  has_attachment :storage => :file_system, :thumbnails => { :normal => '300>', :thumb => '75x75>' }
 	acts_as_list :column => :listpos,  :scope => :item
 	
 	def before_save

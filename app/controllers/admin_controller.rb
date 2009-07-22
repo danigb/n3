@@ -4,7 +4,7 @@ class AdminController < ApplicationController
 
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
   verify :method => :post, :only => [ :destroy, :create, :update, :destroy_image ],
-         :redirect_to => { :action => :index }
+    :redirect_to => { :action => :index }
 
 	def index
 	end
@@ -13,8 +13,8 @@ class AdminController < ApplicationController
  		@category = params[:id]
 		@groups = @subcategories[@category]
 		@group = params[:group].nil? ? @groups.first : params[:group]
-#    @items = Item.paginate_by_category @category, :page => params[:page]
-# <%= will_paginate @items %>
+    #    @items = Item.paginate_by_category @category, :page => params[:page]
+    # <%= will_paginate @items %>
 		@items = Item.find(:all, :conditions => ["category = ? AND subcategory = ?", @category, @group], :order => "subcategory, position")
   end
 
@@ -104,10 +104,12 @@ class AdminController < ApplicationController
 	end
 
 
-private
+  private
   def save_images(item, params)
+    unless params[:attachment].nil?
       params[:attachment].each do |attachment|
         item.item_images << ItemImage.new(:uploaded_data => attachment) unless attachment.size == 0
-      end unless params[:attachment].nil?
+      end
+    end
   end
 end

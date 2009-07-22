@@ -11,5 +11,4 @@ class Array
     end
     chunks
   end
-  alias / chunk
 end
