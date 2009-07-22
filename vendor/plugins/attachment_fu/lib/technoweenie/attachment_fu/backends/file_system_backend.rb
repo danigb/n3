@@ -31,10 +31,18 @@ module Technoweenie # :nodoc:
           ((respond_to?(:parent_id) && parent_id) || id).to_i
         end
       
-        # overrwrite this to do your own app-specific partitioning. 
-        # you can thank Jamis Buck for this: http://www.37signals.com/svn/archives2/id_partitioning.php
+        # by default paritions files into directories e.g. 0000/0001/image.jpg
+        # to turn this off set :partition => false
         def partitioned_path(*args)
-          ("%08d" % attachment_path_id).scan(/..../) + args
+          default_path = ("%08d" % attachment_path_id).scan(/..../) + args
+          return default_path if !respond_to?(:attachment_options) 
+          return args if attachment_options[:partition] == false 
+          if attachment_options[:partition].is_a? Proc
+            result = attachment_options[:partition].call(self)
+            result = [result.to_s] if !result.is_a?(Array)
+            return result + args
+          end
+          return default_path
         end
       
         # Gets the public path to the file

@@ -4,6 +4,14 @@ attachment-fu
 attachment_fu is a plugin by Rick Olson (aka technoweenie <http://techno-weenie.net>) and is the successor to acts_as_attachment.  To get a basic run-through of its capabilities, check out Mike Clark's tutorial <http://clarkware.com/cgi/blosxom/2007/02/24#FileUploadFu>.
 
 
+This fork
+=============
+This fork provides means to customize validation error messages and 
+partitioning strategy.
+Both are described in bottom sections of this document.
+
+The fork is contributed by Texuna Technologies.
+
 attachment_fu functionality
 ===========================
 
@@ -44,6 +52,7 @@ has_attachment(options = {})
     :path_prefix      # path to store the uploaded files.
                       # Uses public/#{table_name} by default for the filesystem, and just #{table_name} for the S3 backend.  
                       # Setting this sets the :storage to :file_system.
+    :partition        # Partiton files in directories like /0000/0001/image.jpg. Default is true. 
     :storage          # Specifies the storage system to use..
                       # Defaults to :db_file.  Options are :file_system, :db_file, and :s3.
     :processor        # Sets the image processor to use for resizing of the attached image.
@@ -60,7 +69,7 @@ has_attachment(options = {})
     has_attachment :thumbnails => { :thumb => [50, 50], :geometry => 'x50' }
     has_attachment :storage => :file_system, :path_prefix => 'public/files'
     has_attachment :storage => :file_system, :path_prefix => 'public/files', 
-                   :content_type => :image, :resize_to => [50,50]
+                   :content_type => :image, :resize_to => [50,50], :partition => false
     has_attachment :storage => :file_system, :path_prefix => 'public/files',
                    :thumbnails => { :thumb => [50, 50], :geometry => 'x50' }
     has_attachment :storage => :s3
@@ -160,3 +169,71 @@ Example in controller:
       render :action => :new
     end
   end
+
+attachement_fu scripting
+====================================
+
+You may wish to import a large number of images or attachments. 
+The following example shows how to upload a file from a script. 
+
+#!/usr/bin/env ./script/runner
+
+# required to use ActionController::TestUploadedFile 
+require 'action_controller'
+require 'action_controller/test_process.rb'
+
+path = "./public/images/x.jpg"
+
+# mimetype is a string like "image/jpeg". One way to get the mimetype for a given file on a UNIX system
+# mimetype = `file -ib #{path}`.gsub(/\n/,"")
+
+mimetype = "image/jpeg"
+
+# This will "upload" the file at path and create the new model.
+@attachable = AttachmentMetadataModel.new(:uploaded_data => ActionController::TestUploadedFile.new(path, mimetype))
+@attachable.save
+
+Validation error messages customization:
+================================
+Now you can pass custom error formatter method names to validates_as_attachment:
+
+    validates_as_attachment :error_formatters => {:content_type => :add_content_type_error, :size => :add_size_error}
+
+Here's an example of error formatter. It uses Globalize to translate the message template:
+
+    def add_content_type_error(options)
+      return if !filename #content type doesn't matter if there's no file
+      msg = sprintf(("Your file's format (%s) is denied. Allowed are only " +
+          "image formats.").translate, options[:value])
+
+      #don't try to translate string expanded with parameters
+      msg.translated = true
+
+      #for it to not mix with attribute name (and break .translated state)
+      errors.add_to_base(msg)
+    end
+
+Also it applies fixes against 'Size is not included in the list error' issue 
+(which is often reproduced on Windows) suggested at 
+http://railsforum.com/viewtopic.php?pid=26427#p26427.
+
+Partitioning strategy customization:
+=================================
+Now you can specify partitioning strategy as lambda in has_attachment 
+statement, like this:
+
+    class Attachment < ActiveRecord::Base
+      has_attachment :storage => :file_system, :path_prefix => 'files/issues', 
+        :partition => lambda {|a| (a.thumbnail ? a.parent : a).document_id}
+
+      belongs_to :document, :polymorphic => true
+      ...
+
+Attachment model object is passed to lambda. In this example we have Issue 
+model having many Attachments via polymorphic association, and we want 
+attachment files pathes to be like 'files/issues/67/my_file.doc', where 67 is 
+attachment's issue id. The lambda can also return array of strings, then 
+['a', 'b'] will become path 'files/issues/a/b' in this case. This lambda will 
+fit if you use thumbnails; if you don't it will be just lambda {|a| a.document_id}.
+
+Note that partitioning is relevant only to :file_system storage.

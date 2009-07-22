@@ -13,8 +13,6 @@ class AdminController < ApplicationController
  		@category = params[:id]
 		@groups = @subcategories[@category]
 		@group = params[:group].nil? ? @groups.first : params[:group]
-    #    @items = Item.paginate_by_category @category, :page => params[:page]
-    # <%= will_paginate @items %>
 		@items = Item.find(:all, :conditions => ["category = ? AND subcategory = ?", @category, @group], :order => "subcategory, position")
   end
 
