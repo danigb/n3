@@ -6,8 +6,8 @@
 		<% else %>
 			<%= link_to period, {:action=> "projects", :id => period} %>
 		<% end %>
-		<%= '<br/>' if index % 2 == 1 %>
-		<%= ' | ' if index % 2 == 0 %>
+		<%= '<br/>' if index > 1 && index % 2 == 0 %>
+		<%= ' | ' if index == 0 || index % 2 == 1 %>
 		<% index += 1 %>
 	<% end %>
 </div>
