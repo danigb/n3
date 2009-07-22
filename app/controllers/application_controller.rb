@@ -38,8 +38,8 @@ class ApplicationController < ActionController::Base
       NameValue.new('Kein', 'none')]
 
 
-		@periods = ['2009 | 2008', '2007 | 2006', '2005 | 2004', '2003 | 2002', '2001 | 2000', '1999 | 1998', '1997 | 1996']
-		@period_years = [[2009, 2008], [2007, 2006], [2005, 2004], [2003, 2002], [2001, 2000], [1999, 1998], [1997, 1996]]
+		@periods = ['2009', '2008', '2007 | 2006', '2005 | 2004', '2003 | 2002', '2001 | 2000', '1999 | 1998', '1997 | 1996']
+		@period_years = [[2009,2009], [2008, 2008], [2007, 2006], [2005, 2004], [2003, 2002], [2001, 2000], [1999, 1998], [1997, 1996]]
 		@map = {}
 		@periods.each_with_index {|period, index| @map[@periods[index]] = @period_years[index]}
 		@current_period = @periods[0]
