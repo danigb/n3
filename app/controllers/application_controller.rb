@@ -13,6 +13,7 @@ end
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
+  helper_method :qt
 
   filter_parameter_logging :password, :password_confirmation
 
@@ -54,5 +55,10 @@ class ApplicationController < ActionController::Base
 		@periods.find {|period| !period.index(year.to_s).nil?}
 	end	
 	
+  private
+  def qt(*symbols)
+    last = symbols.pop
+    I18n.t(last, :scope => symbols)
+  end
 
 end
