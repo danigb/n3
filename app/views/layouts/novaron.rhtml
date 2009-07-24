@@ -13,6 +13,7 @@
   </head>
   <body>
     <div id="middle">
+    <% if logged_in? -%><%= link_to 'admin', '/admin' %>   <% end -%>
     <div id="logo">
     </div>
     <div id="menu">
@@ -32,7 +33,6 @@
     <%= yield  %>
     <div style="clear: both" />
     </div>
-    <% if logged_in? -%><%= link_to 'admin', '/admin' %>   <% end -%>
 
     <script type="text/javascript">
       var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");

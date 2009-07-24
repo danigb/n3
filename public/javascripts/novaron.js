@@ -13,7 +13,7 @@ var currentImage = -1;
  });
 
 function expand() {
-	$("#expansible").animate({height : "340px"}, 00);
+	$(".expansible").animate({height : "340px"}, 00);
 	$("#content").animate({height : "360px"}, 500, function() {
 		$("#collapser").fadeIn(300);
 	});
@@ -21,7 +21,7 @@ function expand() {
 }
 
 function collapse() {
-	$("#expansible").animate({height : "166px"}, 00);
+	$(".expansible").animate({height : "166px"}, 00);
 	$("#content").animate({height : "178px"}, 500, function() {
 		$("#expander").fadeIn(300);
 	});
