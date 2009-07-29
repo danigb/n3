@@ -19,13 +19,17 @@ class NovaronController < ApplicationController
   def show
 	  if params[:id].strip =~ /^\d+$/ # is a number?
 			@item = Item.find_by_id params[:id]
-			@items = Item.find_all_by_category(@item.category, :order => 'position')
+      @items = Item.find_all_by_category(@item.category, :order => 'position') if @item
     else
 			@items = Item.find_all_by_category(params[:id], :order => 'position')
 			@item = @items.first
 		end
-		@slideshow = @item.slideshow		
-		@section = @item.category
+    if @item && @items
+      @slideshow = @item.slideshow
+      @section = @item.category
+    else
+      render_404
+    end
 	end
 
 	def services
@@ -55,18 +59,23 @@ class NovaronController < ApplicationController
 		@groups = @periods
 		@group = params[:id]
 		@group = @current_period if @group.nil?
-		@items = Item.find_projects(years_in @group)
-		@item = nil
-		all = []
-		@items.each {|item| all << [item.index_image.public_filename, item.id ] if !item.index_image.nil? }
-		@images = []
-		range = 0..((6*3) - 1)
-		range.each do |index| 
-			@images[index] = ['index_empty.gif', nil]
-		end
-		all.each_with_index {|thumb, index| @images[index] = thumb }
-		@images.reverse!
-	end
+    years = years_in @group
+    if years.nil?
+      render_404
+    else
+      @items = Item.find_projects(years)
+      @item = nil
+      all = []
+      @items.each {|item| all << [item.index_image.public_filename, item.id ] if !item.index_image.nil? }
+      @images = []
+      range = 0..((6*3) - 1)
+      range.each do |index|
+        @images[index] = ['index_empty.gif', nil]
+      end
+      all.each_with_index {|thumb, index| @images[index] = thumb }
+      @images.reverse!
+    end
+  end
 
   private
   def prepare(category, id, group)
@@ -86,4 +95,8 @@ class NovaronController < ApplicationController
 		@item = @items.first if @item.nil?
 		@section = @item.category
 	end
+
+  def render_404
+    render :file => "#{RAILS_ROOT}/public/404.html", :status => "404 Not Found"
+  end
 end

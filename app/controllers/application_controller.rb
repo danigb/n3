@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
 	
 	def years_in(period)
 		limits = @map[period]
-		[limits[0], limits[1]]
+		[limits[0], limits[1]] unless limits.nil?
 	end
 	
 	def period_of(year)
