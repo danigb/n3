@@ -3,7 +3,7 @@ var expandible = false;
 var currentImage = -1;
 
  $(document).ready(function(){
-		height = $("#overflowPanel").height();
+		var height = $("#overflowPanel").height();
 		if (height != null && height > 160) {
 			$("#expander").fadeIn(1000);
 			expandible = true;
