@@ -10,6 +10,7 @@ db/data.yml
 db/data/*.sql
 backups/*.bz2
 config/git.yml
+public/item_images
 public/item_images/*
 public/item_images/**/*
 
