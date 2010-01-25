@@ -7,8 +7,9 @@ RAILS_GEM_VERSION = '2.3.4' unless defined? RAILS_GEM_VERSION
 require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
-    config.gem 'mislav-will_paginate', :version => '~> 2.3.8', :lib => 'will_paginate',
+  config.gem 'mislav-will_paginate', :version => '~> 2.3.8', :lib => 'will_paginate',
     :source => 'http://gems.github.com'
+  config.gem 'hoptoad_notifier'
   
   config.time_zone = 'UTC'
 end
