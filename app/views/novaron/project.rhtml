@@ -17,7 +17,7 @@
   <div id="mainText">
     <div  class="contentExpand3 expansible" >
       <div id="overflowPanel">
-        <%= @item.title %> | <%= @item.subcategory %><br/>
+        <%= @item.title %> | <%= @item.subcategory %><br/><br/>
         <%=beautify @item.content  %>
         <% for pdf in @item.pdfs %>
           <%= image_tag 'file.png' %>
