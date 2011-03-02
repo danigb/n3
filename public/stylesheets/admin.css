@@ -45,11 +45,11 @@ textarea {
 }
 
 div#logo {
-	background-image: url("../images/logo3.gif");
+	background-image: url("../images/novaron_logo.gif");
 	background-repeat: no-repeat;
 	background-position: top right;
 	height: 30px;
-	width: 284px;
+	width: 242px;
 	margin: 10px 8.5% 0 0;
 	float: right;
 }

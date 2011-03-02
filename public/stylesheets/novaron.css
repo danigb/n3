@@ -50,11 +50,11 @@ div#menu #links {
 }
 
 div#logo {
-    background-image: url("../images/logo3.gif");
+    background-image: url("../images/novaron_logo.gif");
     background-repeat: no-repeat;
     background-position: top left;
     height: 24px;
-    width: 246px;
+    width: 242px;
     float: right;
     margin-right: 3px;
 }

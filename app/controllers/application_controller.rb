@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
 		@subcategories = {}
 		@categories.each {|item| @subcategories[item] = ['all']}
     # JODER: (2007..1996).to_a
-		@subcategories['projects'] = ['2010', '2009', '2008', '2007', '2006', '2005', '2004', '2003', '2002', '2001', '2000', '1999', '1998', '1997', '1996']
+		@subcategories['projects'] = ['2015', '2014', '2013', '2012', '2011', '2010', '2009', '2008', '2007', '2006', '2005', '2004', '2003', '2002', '2001', '2000', '1999', '1998', '1997', '1996']
 		@subcategories['team'] = ['Diepoldsau', 'Zürich']
 		@subcategories['contact'] = ['Diepoldsau', 'Zürich']
 		@positions = [NameValue.new('Diashow', 'slideshow'), 
@@ -38,8 +38,8 @@ class ApplicationController < ActionController::Base
       NameValue.new('Kein', 'none')]
 
 
-		@periods = ['2010', '2009', '2008', '2007 | 2006', '2005 | 2004', '2003 | 2002', '2001 | 2000', '1999 | 1998', '1997 | 1996']
-		@period_years = [[2010,2010],[2009,2009], [2008, 2008], [2007, 2006], [2005, 2004], [2003, 2002], [2001, 2000], [1999, 1998], [1997, 1996]]
+		@periods = ['2015 | 2014 | 2013','2012', '2011','2010', '2009', '2008', '2007 | 2006', '2005 | 2004', '2003 | 2002', '2001 | 2000', '1999 | 1998', '1997 | 1996']
+		@period_years = [[2015, 2014, 2013], [2012, 2012], [2011, 2011], [2010,2010],[2009,2009], [2008, 2008], [2007, 2006], [2005, 2004], [2003, 2002], [2001, 2000], [1999, 1998], [1997, 1996]]
 		@map = {}
 		@periods.each_with_index {|period, index| @map[@periods[index]] = @period_years[index]}
 
