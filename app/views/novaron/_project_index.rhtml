@@ -1,14 +1,12 @@
 <div id="years" class="block">
-	<% index = 0 %>
-	<% for period in @periods %>
+	<% @periods.each_with_index do |period, index| %>
 		<% if @group == period %>
 			<%= link_to period, {:action=> "projects", :id => period}, {:class => 'selected'} %> 
 		<% else %>
 			<%= link_to period, {:action=> "projects", :id => period} %>
 		<% end %>
-		<%= '<br/>' if index > 1 && index % 2 == 0 %>
-		<%= ' | ' if index == 0 || index % 2 == 1 %>
-		<% index += 1 %>
+		<%= '<br/>' if [1,5,7,9].member?(index) %>
+		<%= ' | ' if [0,2,3,4,6,8,10].member?(index) %>
 	<% end %>
 </div>
 
