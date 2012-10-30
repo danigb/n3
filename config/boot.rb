@@ -1,3 +1,7 @@
+# http://stackoverflow.com/questions/4980877/rails-error-couldnt-parse-yaml
+require 'yaml'
+YAML::ENGINE.yamler = 'syck'
+
 # Don't change this file!
 # Configure your app in config/environment.rb and config/environments/*.rb
 
@@ -61,7 +65,7 @@ module Rails
       else
         gem 'rails'
       end
-    rescue Gem::LoadError => load_error
+    rescue Gem::LoadError
       $stderr.puts %(Missing the Rails #{version} gem. Please `gem install -v=#{version} rails`, update your RAILS_GEM_VERSION setting in config/environment.rb for the Rails version you do have installed, or comment out RAILS_GEM_VERSION to use the latest version installed.)
       exit 1
     end
@@ -103,6 +107,20 @@ module Rails
           File.read("#{RAILS_ROOT}/config/environment.rb")
         end
     end
+  end
+end
+
+class Rails::Boot
+  def run
+    load_initializer
+
+    Rails::Initializer.class_eval do
+      def load_gems
+        @bundler_loaded ||= Bundler.require :default, Rails.env
+      end
+    end
+
+    Rails::Initializer.run(:set_load_path)
   end
 end
 

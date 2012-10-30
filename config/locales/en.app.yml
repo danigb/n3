@@ -1,8 +1,0 @@
-
-en:
-  404:
-    title: "The page you're looking for doesn't exist"
-  422:
-    title: "The change you wanted was rejected (422)"
-  500:
-    title: "We're sorry, but something went wrong (500)"
