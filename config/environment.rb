@@ -1,6 +1,9 @@
 require 'yaml' 
 YAML::ENGINE.yamler = 'syck'
 
+Encoding.default_external = Encoding::UTF_8
+Encoding.default_internal = Encoding::UTF_8
+
 # Be sure to restart your server when you modify this file
 
 # Specifies gem version of Rails to use when vendor/rails is not present
