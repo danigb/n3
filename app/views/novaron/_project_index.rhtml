@@ -5,8 +5,7 @@
 		<% else %>
 			<%= link_to period, {:action=> "projects", :id => period} %>
 		<% end %>
-		<%= '<br/>' if [1,5,7,9].member?(index) %>
-		<%= ' | ' if [0,2,3,4,6,8,10].member?(index) %>
+    <%= [3, 7, 9, 11].member?(index) ? '<br/>' : ' | ' %>
 	<% end %>
 </div>
 
